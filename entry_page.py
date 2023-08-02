@@ -1,7 +1,14 @@
 import tkinter.messagebox
 from tkinter import *
 from selected_word import selected_word
-from user_guess import user_guess
+#from user_guess import user_guess_func
+
+
+def user_guess_func( selected_word, chances ) :
+
+    alphabet_table.grid(row=0, column=0, columnspan=6)
+
+    return True
 
 
 def choose_level():
@@ -20,23 +27,26 @@ def start_game():
     global level_choice
     game_frame.pack()
     level_frame.pack_forget()
-    Label(game_frame, text="salam").pack()
     easy, medium, hard = (False, False, False)
+    chances = 6
     match level_choice:
         case "easy":
             easy = True
         case "medium":
             medium = True
+            chances = 4
         case "hard":
             hard = True
+            chances =2
         case "hardcore":
             easy, medium, hard = (True, True, True)
+            chances = 2
         case "costum":
             easy = True  # later
     user_won = False
 
     while True:
-        user_won = user_guess(selected_word(easy, medium, hard))
+        user_won = user_guess_func(selected_word(easy, medium, hard), chances)
         show_win_lose(user_won)
         flag = continue_game()
         if flag == "no":
@@ -52,6 +62,10 @@ def show_win_lose(user_won):
 
 def continue_game():
     return tkinter.messagebox.askquestion("continue", "Do you want to continue the game ?")
+
+
+def get_character(character):
+    print(character)
 
 
 entry_page = Tk()
@@ -83,6 +97,20 @@ level_choice.set("easy")
 
 # start game section
 game_frame = Frame(entry_page)
+
+# user guess
+alphabet_table = Frame(game_frame)
+
+alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ          "
+buttons = []
+counter = 0
+for row in range(5):
+    for column in range(6):
+        buttons.append(Button(alphabet_table, text= alphabet[counter], width=5,height=2, command=lambda i = alphabet[counter] : get_character(i)))
+        buttons[counter].grid(row= row, column= column)
+        counter += 1
+
+
 
 entry_page.mainloop()
 
