@@ -1,4 +1,7 @@
+import tkinter.messagebox
 from tkinter import *
+from selected_word import selected_word
+from user_guess import user_guess
 # def set_level():
 #     #test
 #     lable = Label(level_frame, text=level_choice.get())
@@ -9,9 +12,38 @@ def choose_level():
 
 
 def start_game():
+    global level_choice
     game_frame.pack()
     level_frame.pack_forget()
     Label(game_frame, text="salam").pack()
+    easy, medium, hard = (False, False, False)
+    match level_choice:
+        case "easy":
+            easy = True
+        case "medium":
+            medium = True
+        case "hard":
+            hard = True
+        case "hardcore":
+            easy, medium, hard = (True, True, True)
+        case "costum":
+            easy = True  # later
+    user_won = False
+
+    while True:
+        user_won = user_guess(selected_word(easy, medium, hard))
+        show_win_lose(user_won)
+        flag = continue_game()
+        if flag == "no":
+            break
+
+
+def show_win_lose(user_won):
+    pass
+
+
+def continue_game():
+    return tkinter.messagebox.askquestion("continue", "Do you want to continue the game ?")
 
 
 entry_page = Tk()
@@ -57,9 +89,6 @@ pass_level_section_button.pack()
 
 # start game section
 game_frame = Frame(entry_page)
-
-
-
 
 
 
