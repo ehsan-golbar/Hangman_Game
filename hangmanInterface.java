@@ -1,6 +1,6 @@
 interface Hangman {
     public String selected_word ( boolean easy, boolean medium, boolean hard ) ; //select the word thaat user should guess  : Reza
-    public boolean user_guess (String selected_word) ;
+    public boolean user_guess (String selected_word, int chances) ;
         
         // take character from user
         // compare with selected word and showing
