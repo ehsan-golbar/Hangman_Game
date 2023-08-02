@@ -1,2 +1,2 @@
 def selected_word(easy, medium, hard):
-    return "salam"
+    return "egypt"

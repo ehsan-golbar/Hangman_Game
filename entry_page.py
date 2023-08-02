@@ -4,9 +4,22 @@ from selected_word import selected_word
 #from user_guess import user_guess_func
 
 
-def user_guess_func( selected_word, chances ) :
+def user_guess_func( selected_word, chances) :
+    global guess_word
+    guess_word = " ".join("_" * len(selected_word))
 
-    alphabet_table.grid(row=0, column=0, columnspan=6)
+    word_label = Label(game_frame, text=guess_word, font=("arial", 22))
+    word_label.grid(row=0,column=0,pady= 20, columnspan=6, sticky="ew")
+    alphabet_table.grid(row=1, column=0, columnspan=6)
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ          "
+    buttons = []
+    counter = 0
+    for row in range(1,6):
+        for column in range(6):
+            buttons.append(Button(alphabet_table, text=alphabet[counter], width=5, height=2,
+                                  command=lambda i=alphabet[counter]: get_character(i)))
+            buttons[counter].grid(row=row, column=column)
+            counter += 1
 
     return True
 
@@ -65,6 +78,7 @@ def continue_game():
 
 
 def get_character(character):
+
     print(character)
 
 
@@ -101,14 +115,7 @@ game_frame = Frame(entry_page)
 # user guess
 alphabet_table = Frame(game_frame)
 
-alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ          "
-buttons = []
-counter = 0
-for row in range(5):
-    for column in range(6):
-        buttons.append(Button(alphabet_table, text= alphabet[counter], width=5,height=2, command=lambda i = alphabet[counter] : get_character(i)))
-        buttons[counter].grid(row= row, column= column)
-        counter += 1
+
 
 
 
