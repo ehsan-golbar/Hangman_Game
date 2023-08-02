@@ -9,6 +9,13 @@ from user_guess import user_guess
 def choose_level():
     level_frame.pack()
     registration_frame.pack_forget()
+    Radiobutton(level_frame, text="Easy", variable=level_choice, value="easy").pack()
+    Radiobutton(level_frame, text="Medium", variable=level_choice, value="medium").pack()
+    Radiobutton(level_frame, text="Hard", variable=level_choice, value="hard").pack()
+    Radiobutton(level_frame, text="Hardcore", variable=level_choice, value="hardcore").pack()
+    Radiobutton(level_frame, text="Costume", variable=level_choice, value="costume").pack()
+    pass_level_section_button = Button(level_frame, text="Next", command=start_game)
+    pass_level_section_button.pack()
 
 
 def start_game():
@@ -16,6 +23,7 @@ def start_game():
     game_frame.pack()
     level_frame.pack_forget()
     Label(game_frame, text="salam").pack()
+    print(level_choice.get())
     easy, medium, hard = (False, False, False)
     match level_choice:
         case "easy":
@@ -39,8 +47,10 @@ def start_game():
 
 
 def show_win_lose(user_won):
-    pass
-
+    if user_won :
+        tkinter.messagebox.showinfo(title="", message= "Well done, You Won!")
+    else:
+        tkinter.messagebox.showinfo(title="", message="sorry, you lost")
 
 def continue_game():
     return tkinter.messagebox.askquestion("continue", "Do you want to continue the game ?")
@@ -79,13 +89,13 @@ level_frame = Frame(entry_page)
 
 level_choice = StringVar()
 level_choice.set("easy")
-Radiobutton(level_frame, text="Easy", variable=level_choice, value="easy").pack()
-Radiobutton(level_frame, text="Medium", variable=level_choice, value="medium").pack()
-Radiobutton(level_frame, text="Hard", variable=level_choice, value="hard").pack()
-Radiobutton(level_frame, text="Hardcore", variable=level_choice, value="hardcore").pack()
-Radiobutton(level_frame, text="Costume", variable=level_choice, value="costume").pack()
-pass_level_section_button = Button(level_frame, text= "Next", command= start_game)
-pass_level_section_button.pack()
+# Radiobutton(level_frame, text="Easy", variable=level_choice, value="easy").pack()
+# Radiobutton(level_frame, text="Medium", variable=level_choice, value="medium").pack()
+# Radiobutton(level_frame, text="Hard", variable=level_choice, value="hard").pack()
+# Radiobutton(level_frame, text="Hardcore", variable=level_choice, value="hardcore").pack()
+# Radiobutton(level_frame, text="Costume", variable=level_choice, value="costume").pack()
+# pass_level_section_button = Button(level_frame, text= "Next", command= start_game)
+# pass_level_section_button.pack()
 
 # start game section
 game_frame = Frame(entry_page)
