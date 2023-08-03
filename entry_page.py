@@ -4,7 +4,7 @@ from selected_word import selected_word
 #from user_guess import user_guess_func
 
 
-def user_guess_func( selected_word, chances) :
+def user_guess_func( ) :
     global guess_word
     guess_word = " ".join("_" * len(selected_word))
 
@@ -20,8 +20,10 @@ def user_guess_func( selected_word, chances) :
                                   command=lambda i=alphabet[counter]: get_character(i)))
             buttons[counter].grid(row=row, column=column)
             counter += 1
+    win = False
 
-    return True
+
+    return win
 
 
 def choose_level():
@@ -37,7 +39,7 @@ def choose_level():
 
 
 def start_game():
-    global level_choice
+    global level_choice, selected_word, chances
     game_frame.pack()
     level_frame.pack_forget()
     easy, medium, hard = (False, False, False)
@@ -59,7 +61,8 @@ def start_game():
     user_won = False
 
     while True:
-        user_won = user_guess_func(selected_word(easy, medium, hard), chances)
+        selected_word = selected_word(easy, medium, hard)
+        user_guess_func()
         show_win_lose(user_won)
         flag = continue_game()
         if flag == "no":
@@ -78,7 +81,8 @@ def continue_game():
 
 
 def get_character(character):
-
+    global guess_word
+    chances -=1
     print(character)
 
 
