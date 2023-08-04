@@ -29,8 +29,15 @@ def user_guess_func(continue_game_callback) :
     def get_character(character):
         global guess_word, chances
         nonlocal temp
+
+
+
+        if character in selected_word:
+            guess_word = " ".join([c if c == character or c in guess_word else "_" for c in selected_word])
+            word_label.configure(text= guess_word)
+        else:
+            temp -= 1
         print(temp)
-        temp -= 1
         print(character)
         check_win_lose()
 
@@ -89,7 +96,7 @@ def start_game():
         else:
             entry_page.quit()
 
-    selected_word = selecte_word(easy, medium, hard)
+    selected_word = selecte_word(easy, medium, hard).upper()
     user_guess_func(continue_game)
 
 def show_win_lose(user_won):
