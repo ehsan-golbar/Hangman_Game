@@ -1,6 +1,6 @@
 import tkinter.messagebox
 from tkinter import *
-from selected_word import selected_word
+from selected_word import selecte_word
 #from user_guess import user_guess_func
 
 
@@ -20,10 +20,25 @@ def user_guess_func( ) :
                                   command=lambda i=alphabet[counter]: get_character(i)))
             buttons[counter].grid(row=row, column=column)
             counter += 1
-    win = False
-
-
-    return win
+    # win = False
+    #
+    # def get_character(character):
+    #     global guess_word, chances
+    #
+    #     chances -= 1
+    #     print(character)
+    #     check_win_lose()
+    #
+    # def check_win_lose ():
+    #     if chances == 0:
+    #         show_win_lose(False)
+    #     elif guess_word.find("_") == -1 :
+    #         show_win_lose(True)
+    #     else:
+    #         entry_page.after(100, check_win_lose)
+    #
+    # check_win_lose()
+    # return win
 
 
 def choose_level():
@@ -43,7 +58,6 @@ def start_game():
     game_frame.pack()
     level_frame.pack_forget()
     easy, medium, hard = (False, False, False)
-    chances = 6
     match level_choice:
         case "easy":
             easy = True
@@ -58,12 +72,12 @@ def start_game():
             chances = 2
         case "costum":
             easy = True  # later
-    user_won = False
+
 
     while True:
-        selected_word = selected_word(easy, medium, hard)
+        selected_word = selecte_word(easy, medium, hard)
         user_guess_func()
-        show_win_lose(user_won)
+
         flag = continue_game()
         if flag == "no":
             break
@@ -80,10 +94,7 @@ def continue_game():
     return tkinter.messagebox.askquestion("continue", "Do you want to continue the game ?")
 
 
-def get_character(character):
-    global guess_word
-    chances -=1
-    print(character)
+
 
 
 entry_page = Tk()
@@ -115,7 +126,8 @@ level_choice.set("easy")
 
 # start game section
 game_frame = Frame(entry_page)
-
+selected_word = ""
+chances = 6
 # user guess
 alphabet_table = Frame(game_frame)
 
