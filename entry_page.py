@@ -3,9 +3,12 @@ from tkinter import *
 from selected_word import selecte_word
 #from user_guess import user_guess_func
 
+selected_word = ""
+chances = 1
 
-def user_guess_func( ) :
-    global guess_word
+
+def user_guess_func(continue_game_callback) :
+    global guess_word, chances
     guess_word = " ".join("_" * len(selected_word))
 
     word_label = Label(game_frame, text=guess_word, font=("arial", 22))
@@ -22,20 +25,22 @@ def user_guess_func( ) :
             counter += 1
     # win = False
     #
-    # def get_character(character):
-    #     global guess_word, chances
-    #
-    #     chances -= 1
-    #     print(character)
-    #     check_win_lose()
-    #
-    # def check_win_lose ():
-    #     if chances == 0:
-    #         show_win_lose(False)
-    #     elif guess_word.find("_") == -1 :
-    #         show_win_lose(True)
-    #     else:
-    #         entry_page.after(100, check_win_lose)
+    def get_character(character):
+        global guess_word, chances
+
+        chances -= 1
+        print(character)
+        check_win_lose()
+
+    def check_win_lose ():
+        if chances == 0:
+            show_win_lose(False)
+            continue_game_callback()
+        elif guess_word.find("_") == -1 :
+            show_win_lose(True)
+            continue_game_callback()
+
+            #entry_page.after(100, check_win_lose)
     #
     # check_win_lose()
     # return win
@@ -54,7 +59,7 @@ def choose_level():
 
 
 def start_game():
-    global level_choice, selected_word, chances
+    global level_choice,selected_word, chances
     game_frame.pack()
     level_frame.pack_forget()
     easy, medium, hard = (False, False, False)
@@ -73,15 +78,16 @@ def start_game():
         case "costum":
             easy = True  # later
 
+    def continue_game():
+        continue_flag = tkinter.messagebox.askquestion("continue", "Do you want to continue the game ?")
+        if continue_flag == "yes" :
+            selected_word = selecte_word(easy, medium, hard)
+            user_guess_func(continue_game)
+        else:
+            entry_page.quit()
 
-    while True:
-        selected_word = selecte_word(easy, medium, hard)
-        user_guess_func()
-
-        flag = continue_game()
-        if flag == "no":
-            break
-
+    selected_word = selecte_word(easy, medium, hard)
+    user_guess_func(continue_game)
 
 def show_win_lose(user_won):
     if user_won :
@@ -90,8 +96,7 @@ def show_win_lose(user_won):
         tkinter.messagebox.showinfo(title="", message="sorry, you lost")
 
 
-def continue_game():
-    return tkinter.messagebox.askquestion("continue", "Do you want to continue the game ?")
+
 
 
 
@@ -126,8 +131,8 @@ level_choice.set("easy")
 
 # start game section
 game_frame = Frame(entry_page)
-selected_word = ""
-chances = 6
+
+
 # user guess
 alphabet_table = Frame(game_frame)
 
