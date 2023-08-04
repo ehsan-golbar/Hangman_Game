@@ -13,6 +13,8 @@ def user_guess_func(continue_game_callback) :
     guess_word = " ".join("_" * len(selected_word))
 
     word_label = Label(game_frame, text=guess_word, font=("arial", 22))
+    chances_lable = Label(game_frame, text= "chances : " + str(temp))
+    chances_lable.grid(row=0, column=0, sticky="w")
     word_label.grid(row=0,column=0,pady= 20, columnspan=6, sticky="ew")
     alphabet_table.grid(row=1, column=0, columnspan=6)
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ          "
@@ -33,13 +35,13 @@ def user_guess_func(continue_game_callback) :
         nonlocal temp
 
         buttons[index].config(state="disabled")
-
-
         if character in selected_word:
             guess_word = " ".join([c if c == character or c in guess_word else "_" for c in selected_word])
-            word_label.configure(text= guess_word)
+            word_label.config(text= guess_word)
+
         else:
             temp -= 1
+            chances_lable.config(text="chances : " + str(temp))
         print(temp)
         print(character)
         check_win_lose()
