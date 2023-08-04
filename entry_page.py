@@ -20,16 +20,19 @@ def user_guess_func(continue_game_callback) :
     counter = 0
     for row in range(1,6):
         for column in range(6):
-            buttons.append(Button(alphabet_table, text=alphabet[counter], width=5, height=2,
-                                  command=lambda i=alphabet[counter]: get_character(i)))
+            button = Button(alphabet_table, text=alphabet[counter], width=5, height=2,
+                                  command=lambda i=alphabet[counter], index = counter : get_character(i, index))
+            buttons.append(button)
             buttons[counter].grid(row=row, column=column)
             counter += 1
     # win = False
     #
-    def get_character(character):
+
+    def get_character(character, index):
         global guess_word, chances
         nonlocal temp
 
+        buttons[index].config(state="disabled")
 
 
         if character in selected_word:
