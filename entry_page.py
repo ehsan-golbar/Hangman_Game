@@ -4,11 +4,12 @@ from selected_word import selecte_word
 #from user_guess import user_guess_func
 
 selected_word = ""
-chances = 1
+chances = 6
 
 
 def user_guess_func(continue_game_callback) :
-    global guess_word, chances
+    global guess_word
+    temp = chances
     guess_word = " ".join("_" * len(selected_word))
 
     word_label = Label(game_frame, text=guess_word, font=("arial", 22))
@@ -27,13 +28,14 @@ def user_guess_func(continue_game_callback) :
     #
     def get_character(character):
         global guess_word, chances
-
-        chances -= 1
+        nonlocal temp
+        print(temp)
+        temp -= 1
         print(character)
         check_win_lose()
 
     def check_win_lose ():
-        if chances == 0:
+        if temp == 0:
             show_win_lose(False)
             continue_game_callback()
         elif guess_word.find("_") == -1 :
@@ -63,7 +65,8 @@ def start_game():
     game_frame.pack()
     level_frame.pack_forget()
     easy, medium, hard = (False, False, False)
-    match level_choice:
+    #print(level_choice.get())
+    match level_choice.get():
         case "easy":
             easy = True
         case "medium":
@@ -77,7 +80,7 @@ def start_game():
             chances = 2
         case "costum":
             easy = True  # later
-
+    #print(chances)
     def continue_game():
         continue_flag = tkinter.messagebox.askquestion("continue", "Do you want to continue the game ?")
         if continue_flag == "yes" :
