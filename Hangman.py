@@ -4,6 +4,8 @@ import tkinter as tk
 class Hangman(tk.Tk):
     def __init__(self):
         super().__init__()
+        self.selected_word = ""
+        self.chances = 6
         self.title("Hangman")
         # put the window in center of screen
         window_height = 500
@@ -29,7 +31,19 @@ class Hangman(tk.Tk):
         tk.Radiobutton(self.level_frame, text="Hard", variable= self.selected_level, value="hard").pack()
         tk.Radiobutton(self.level_frame, text="Hardcore", variable= self.selected_level, value="hardcore").pack()
         tk.Radiobutton(self.level_frame, text="Costume", variable= self.selected_level, value="costume").pack()
-
+        go_to_game = tk.Button(self.level_frame, text="Next", command= self.start_game).pack()
+        # start_game section
+        self.game_section = tk.Frame(self)
+        self.letters_table = tk.Frame(self.game_section)
+        letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ          "
+        buttons = []
+        counter = 0
+        for row in range(1, 6):
+            for column in range(6):
+                buttons.append( tk.Button(self.letters_table, text= letters[counter], width=5, height=2,
+                                          command=lambda i=letters[counter], index = counter : self.get_character(i, index) ))
+                buttons[counter].grid(row=row, column=column)
+                counter += 1
 
 
         self.mainloop()
@@ -39,6 +53,35 @@ class Hangman(tk.Tk):
         self.level_frame.pack()
         self.registration_frame.pack_forget()
 
+
+    def start_game(self):
+        self.game_section.pack()
+        self.letters_table.grid(row=1, column=0, columnspan=6)
+        self.level_frame.pack_forget()
+        easy, medium, hard = (False, False, False)
+        match self.selected_level.get():
+            case "easy":
+                easy = True
+            case "medium":
+                medium = True
+                self.chances = 4
+            case "hard":
+                hard = True
+                self.chances = 2
+            case "hardcore":
+                easy, medium, hard = (True, True, True)
+                self.chances = 2
+            case "costume":
+                easy = True  # later
+        print((easy, medium, hard))
+        self.selecte_word(easy, medium, hard)
+
+    def get_character(self, character, index):
+        pass
+
+    def selecte_word(self, easy, medium, hard):
+        self.selected_word = "salam"
+        print(self.selected_word)
 
     def print_test(self):
         print(self.selected_level.get())
