@@ -4,6 +4,7 @@ import tkinter as tk
 class Hangman(tk.Tk):
     def __init__(self):
         super().__init__()
+        self.guess_word = ""
         self.selected_word = ""
         self.chances = 6
         self.title("Hangman")
@@ -35,6 +36,7 @@ class Hangman(tk.Tk):
         # start_game section
         self.game_section = tk.Frame(self)
         self.letters_table = tk.Frame(self.game_section)
+        self.letters_table.grid(row=1, column=0, columnspan=6)
         letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ          "
         buttons = []
         counter = 0
@@ -45,6 +47,8 @@ class Hangman(tk.Tk):
                 buttons[counter].grid(row=row, column=column)
                 counter += 1
 
+        self.guess_word_lable = tk.Label(self.game_section, text= self.guess_word, font=("arial", 22))
+        self.guess_word_lable.grid(row= 0, column= 0, columnspan= 6, sticky="ew", pady=20)
 
         self.mainloop()
 
@@ -55,9 +59,6 @@ class Hangman(tk.Tk):
 
 
     def start_game(self):
-        self.game_section.pack()
-        self.letters_table.grid(row=1, column=0, columnspan=6)
-        self.level_frame.pack_forget()
         easy, medium, hard = (False, False, False)
         match self.selected_level.get():
             case "easy":
@@ -73,15 +74,20 @@ class Hangman(tk.Tk):
                 self.chances = 2
             case "costume":
                 easy = True  # later
-        print((easy, medium, hard))
+        #print((easy, medium, hard))
         self.selecte_word(easy, medium, hard)
+        self.guess_word = " ".join("_"*len(self.selected_word))
+        print(self.guess_word)
+        self.guess_word_lable.config(text=self.guess_word)
+        self.game_section.pack()
+        self.level_frame.pack_forget()
 
     def get_character(self, character, index):
         pass
 
     def selecte_word(self, easy, medium, hard):
         self.selected_word = "salam"
-        print(self.selected_word)
+       # print(self.selected_word)
 
     def print_test(self):
         print(self.selected_level.get())
