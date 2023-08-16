@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.messagebox as tkm
 
 
 class Hangman(tk.Tk):
@@ -49,6 +50,8 @@ class Hangman(tk.Tk):
 
         self.guess_word_lable = tk.Label(self.game_section, text= self.guess_word, font=("arial", 22))
         self.guess_word_lable.grid(row= 0, column= 0, columnspan= 6, sticky="ew", pady=20)
+        self.chances_lable = tk.Label(self.game_section,  text="chances : " + str(self.chances) )
+        self.chances_lable.grid(row= 6, column = 0)
 
         self.mainloop()
 
@@ -77,16 +80,33 @@ class Hangman(tk.Tk):
         #print((easy, medium, hard))
         self.selecte_word(easy, medium, hard)
         self.guess_word = " ".join("_"*len(self.selected_word))
-        print(self.guess_word)
+        #print(self.guess_word)
         self.guess_word_lable.config(text=self.guess_word)
+        self.chances_lable.config(text="chances : " + str(self.chances) )
         self.game_section.pack()
         self.level_frame.pack_forget()
 
     def get_character(self, character, index):
-        pass
+        if character in self.selected_word :
+            self.guess_word = " ".join([c if c == character or c in self.guess_word else "_" for c in self.selected_word])
+            self.guess_word_lable.config(text=self.guess_word)
+        else:
+            self.chances -= 1
+            self.chances_lable.config(text="chances : " + str(self.chances))
+            #update chances lable
+
+        self.check_win_or_lose()
+
+
+    def check_win_or_lose(self):
+        if "_" in self.guess_word :
+            if self.chances == 0 :
+                tkm.showinfo(title="", message="sorry, you lost")
+        else:
+            tkm.showinfo(title="", message="Well done, You Won!")
 
     def selecte_word(self, easy, medium, hard):
-        self.selected_word = "salam"
+        self.selected_word = "SALAM"
        # print(self.selected_word)
 
     def print_test(self):
