@@ -90,7 +90,7 @@ def start_game():
         case "hardcore":
             easy, medium, hard = (True, True, True)
             chances = 2
-        case "costum":
+        case "costume":
             easy = True  # later
     #print(chances)
     def continue_game():
