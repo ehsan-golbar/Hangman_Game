@@ -102,13 +102,22 @@ class Hangman(tk.Tk):
         if "_" in self.guess_word :
             if self.chances == 0 :
                 tkm.showinfo(title="", message="sorry, you lost")
+                self.continue_game()
         else:
             tkm.showinfo(title="", message="Well done, You Won!")
-
+            self.continue_game()
     def selecte_word(self, easy, medium, hard):
         self.selected_word = "SALAM"
        # print(self.selected_word)
 
+    def continue_game (self):
+        continue_flag = tkm.askquestion("continue?", " Do you want to try again ?")
+        if continue_flag == "yes":
+            self.game_section.pack_forget()
+            self.choose_level()
+        else :
+
+            self.quit()
     def print_test(self):
         print(self.selected_level.get())
 
