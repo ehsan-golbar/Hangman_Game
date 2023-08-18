@@ -1,6 +1,5 @@
 import tkinter as tk
 import tkinter.messagebox as tkm
-
 from PIL import ImageTk, Image
 from rembg import remove
 
