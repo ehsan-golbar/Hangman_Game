@@ -2,7 +2,7 @@ import tkinter as tk
 import tkinter.messagebox as tkm
 
 from PIL import ImageTk, Image
-from rembg import remove
+
 
 class Hangman(tk.Tk):
     def __init__(self):
@@ -24,7 +24,10 @@ class Hangman(tk.Tk):
         self.registration_frame.pack()
         welcom_lable = tk.Label(self.registration_frame, text="Welcome!")
         welcom_lable.pack()
-        next_photo = ImageTk.PhotoImage( remove(Image.open('pic/next.png')).resize((90,60)))
+
+
+        next_photo = ImageTk.PhotoImage( Image.open('pic/out.png').resize((90,60)))
+
 
         go_to_level_section = tk.Button(self.registration_frame, image= next_photo , borderwidth= 0 , command= self.choose_level)
         go_to_level_section.size()
