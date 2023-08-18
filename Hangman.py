@@ -1,6 +1,8 @@
 import tkinter as tk
 import tkinter.messagebox as tkm
 
+from PIL import ImageTk, Image
+from rembg import remove
 
 class Hangman(tk.Tk):
     def __init__(self):
@@ -22,7 +24,10 @@ class Hangman(tk.Tk):
         self.registration_frame.pack()
         welcom_lable = tk.Label(self.registration_frame, text="Welcome!")
         welcom_lable.pack()
-        go_to_level_section = tk.Button(self.registration_frame, text="Next", command= self.choose_level)
+        next_photo = ImageTk.PhotoImage( remove(Image.open('pic/next.png')).resize((90,60)))
+
+        go_to_level_section = tk.Button(self.registration_frame, image= next_photo , borderwidth= 0 , command= self.choose_level)
+        go_to_level_section.size()
         go_to_level_section.pack()
         # level section
         self.level_frame = tk.Frame(self)
@@ -96,7 +101,6 @@ class Hangman(tk.Tk):
         else:
             self.chances -= 1
             self.chances_lable.config(text="chances : " + str(self.chances))
-            #update chances lable
 
         self.check_win_or_lose()
 
