@@ -43,6 +43,8 @@ class Hangman(tk.Tk):
         counter = 0
         for row in range(1, 6):
             for column in range(6):
+                if letters[counter] == " ":
+                    break
                 buttons.append( tk.Button(self.letters_table, text= letters[counter], width=5, height=2,
                                           command=lambda i=letters[counter], index = counter : self.get_character(i, index) ))
                 buttons[counter].grid(row=row, column=column)
@@ -116,9 +118,7 @@ class Hangman(tk.Tk):
             self.game_section.pack_forget()
             self.choose_level()
         else :
-
             self.quit()
     def print_test(self):
         print(self.selected_level.get())
-
 test = Hangman()
