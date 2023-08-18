@@ -49,7 +49,8 @@ class Hangman(tk.Tk):
                                           command=lambda i=letters[counter], index = counter : self.get_character(i, index) ))
                 buttons[counter].grid(row=row, column=column)
                 counter += 1
-
+        buttons[25].grid(column= 3)
+        buttons[24].grid(column= 2)
         self.guess_word_lable = tk.Label(self.game_section, text= self.guess_word, font=("arial", 22))
         self.guess_word_lable.grid(row= 0, column= 0, columnspan= 6, sticky="ew", pady=20)
         self.chances_lable = tk.Label(self.game_section,  text="chances : " + str(self.chances) )
