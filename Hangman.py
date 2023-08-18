@@ -129,3 +129,5 @@ class Hangman(tk.Tk):
     def print_test(self):
         print(self.selected_level.get())
 test = Hangman()
+
+#test reza permition
