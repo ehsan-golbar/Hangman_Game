@@ -14,7 +14,7 @@ def user_guess_func(continue_game_callback) :
 
     word_label = Label(game_frame, text=guess_word, font=("arial", 22))
     chances_lable = Label(game_frame, text= "chances : " + str(temp))
-    chances_lable.grid(row=0, column=0, sticky="w")
+    chances_lable.grid(row=6, column=0, sticky="w")
     word_label.grid(row=0,column=0,pady= 20, columnspan=6, sticky="ew")
     alphabet_table.grid(row=1, column=0, columnspan=6)
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ          "
